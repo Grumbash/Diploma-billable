@@ -1,0 +1,202 @@
+@font-face {
+	font-family: "Akrobat-Regular"; 
+	src: url(fonts/Akrobat-Regular.otf) format("truetype"); 
+} 
+
+@font-face{
+	font-family: "Akrobat-ExtraLight";
+	src: url(fonts/Akrobat-ExtraLight.otf) format("truetype"); 
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+
+html, body, h1 {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	vertical-align: baseline;
+}
+
+body {
+  	font-family: "Akrobat-Regular";
+}
+
+.grid-container {
+	display: grid;
+ 	grid-template-columns: 10% 1fr 1fr 1fr 10%;
+  	grid-template-rows: max-content(950px) 1fr 75px;
+  	grid-template-areas: "header header header header header" ". content content content ." "footer footer footer footer footer";
+}
+
+.content {
+	display: grid;
+  	grid-template-columns: 1fr 1fr 1fr;
+  	grid-template-rows: 1fr 1fr;
+  	grid-template-areas: "f3 f2 f1" "f4 f5 f6";
+  	grid-area: content;
+  	grid-gap: 25px;
+}
+
+.f3 { 
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-template-rows: 2fr 4fr;
+	grid-template-areas: "f3-text" "f3-button";
+	grid-area: f3; 
+}
+
+.f3-text { 
+	grid-area: f3-text; 
+	justify-content: center;
+	align-self: end;
+	justify-self: center;
+}
+
+.f3-button { 
+	grid-area: f3-button; 
+	align-self: center;
+	justify-self: center;
+}
+
+.f2 {
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-template-rows: 2fr 4fr;
+	grid-template-areas: "f2-text" "f2-button";
+	grid-area: f2;
+}
+
+.f2-text { 
+	grid-area: f2-text; 
+	align-self: end;
+	justify-self: center;
+}
+
+.f2-button { 
+	grid-area: f2-button; 
+	align-self: center;
+	justify-self: center;
+}
+
+.f1 {
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-template-rows: 2fr 4fr;
+	grid-template-areas: "f1-text" "f1-button";
+	grid-area: f1;
+}
+
+.f1-text { 
+	grid-area: f1-text; 
+	justify-self: center;
+	align-self: end;
+}
+
+.f1-button { 
+	grid-area: f1-button; 
+	align-self: center;
+	justify-self: center;
+}
+
+.f4 {
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-template-rows: 2fr 4fr;
+	grid-template-areas: "f4-text" "f4-button";
+	grid-area: f4;
+}
+
+.f4-text { 
+	grid-area: f4-text; 
+	justify-content: center;
+	align-self: end;
+	justify-self: center;
+}
+
+.f4-button { 
+	grid-area: f4-button; 
+	align-self: center;
+	justify-self: center;
+}
+
+.f5 {
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-template-rows: 2fr 4fr;
+	grid-template-areas: "f5-text" "f5-button";
+	grid-area: f5;
+}
+
+.f5-text { 
+	grid-area: f5-text; 
+	justify-content: center;
+	align-self: end;
+	justify-self: center;
+}
+
+.f5-button { 
+	grid-area: f5-button; 
+	align-self: center;
+	justify-self: center;
+}
+
+.f6 {
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-template-rows: 2fr 4fr;
+	grid-template-areas: "f6-text" "f6-button";
+	grid-area: f6;
+}
+
+.f6-text { 
+	grid-area: f6-text; 
+	align-self: end;
+	justify-self: center;
+}
+
+.f6-button { 
+	grid-area: f6-button; 
+	align-self: center;
+	justify-self: center;
+}
+
+.header { 
+	height: 100%;
+	width: 100%;
+	text-align: content;
+	grid-area: header; 
+	text-align: center;
+
+	-webkit-transition: all 0.4s ease;
+	transition: all 0.4s ease;
+}
+
+#header_small h1 {
+	text-align: center;
+  	font-size: 28px;
+}
+
+#header_small {
+	position: fixed;
+  	top: 0;
+	height: 100px;
+	width: 100%;
+	line-height:100px;
+	background-image: url(images/logo-small.png);
+}
+
+.footer { 
+	grid-area: footer; 
+	text-align: center;
+	background: #000;
+	line-height:75px;
+}
+
+.footer p {
+	color: #fff;
+	vertical-align: baseline;
+}
