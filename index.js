@@ -6,8 +6,28 @@ const io = require("socket.io")(http);
 
 app.use(express.static("client"));
 
-app.get("/", function(req, res) {
-  res.sendFile(__dirname + "/client/index.html");
+app.post("/upload", (req, res) => {
+  console.log(req);
+});
+
+app.post("/convert", (req, res) => {
+  console.log(req);
+});
+
+app.post("/detect", (req, res) => {
+  console.log(req);
+});
+
+app.post("/parse", (req, res) => {
+  console.log(req);
+});
+
+app.post("/resync", (req, res) => {
+  console.log(req);
+});
+
+app.post("/time", (req, res) => {
+  console.log(req);
 });
 
 io.on("connection", function(socket) {
