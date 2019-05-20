@@ -51,15 +51,44 @@
             </li>
           </ul>
         </div>
-        <section class="main__row upload-section upload-section-first">
+        <form class="main__row upload-section upload-section-detect">
           <input
-            class="upload-section__input upload-section-first__input"
+            class="upload-section__input upload-section-detect__input"
             type="file"
           />
-          <button class="upload-section__btn upload-section-first__btn">
+          <button class="upload-section__btn upload-section-detect__btn">
             Выполнить
           </button>
-        </section>
+        </form>
+        <form class="main__row upload-section upload-section-parse">
+          <input
+            class="upload-section__input upload-section-parse__input"
+            type="file"
+          />
+          <button class="upload-section__btn upload-section-parse__btn">
+            Выполнить
+          </button>
+        </form>
+        <form class="main__row upload-section upload-section-convert">
+          <input
+            class="upload-section__input upload-section-convert__input"
+            type="file"
+          />
+          <select name="format-select" id="format-select">
+            <option value="sub">sub</option>
+            <option value="srt">srt</option>
+            <option value="sbv">sbv</option>
+            <option value="vtt">vtt</option>
+            <option value="ssa">ssa</option>
+            <option value="ass">ass</option>
+            <option value="smi">smi</option>
+            <option value="lrc">lrc</option>
+            <option value="json">json</option>
+          </select>
+          <button class="upload-section__btn upload-section-convert__btn">
+            Выполнить
+          </button>
+        </form>
         <div class="main__row">
           <ul class="main__list">
             <li class="main__item">
@@ -94,25 +123,42 @@
             </li>
           </ul>
         </div>
-        <section class="main__row upload-section upload-section-second">
+        <form class="main__row upload-section upload-section-time">
           <input
-            class="upload-section__input upload-section-second__input"
+            class="upload-section__input upload-section-time__input"
             type="file"
           />
-          <button class="upload-section__btn upload-section-second__bnt">
+          <input type="number" name="time-number" id="time-number" />
+          <button class="upload-section__btn upload-section-time__bnt">
             Выполнить
           </button>
-        </section>
+        </form>
+        <form class="main__row upload-section upload-section-resync">
+          <input
+            class="upload-section__input upload-section-resync__input"
+            type="file"
+          />
+          <button class="upload-section__btn upload-section-resync__bnt">
+            Выполнить
+          </button>
+        </form>
+        <form class="main__row upload-section upload-section-convertToFormat">
+          <input
+            class="upload-section__input upload-section-convertToFormat__input"
+            type="file"
+          />
+          <button
+            class="upload-section__btn upload-section-convertToFormat__bnt"
+          >
+            Выполнить
+          </button>
+        </form>
       </main>
       <footer class="footer">
         <p class="footer__text">&copy;soVal – 2019.</p>
       </footer>
     </div>
     <script src="js/jquery-3.4.1.min.js"></script>
-    <script src="/socket.io/socket.io.js"></script>
-    <script>
-      const socket = io("http://localhost:3000");
-    </script>
     <script src="js/script.js"></script>
   </body>
 </html>

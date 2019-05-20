@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "dev": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "debug": "nodemon --inspect index.js"
   },
   "author": "",
   "license": "ISC",
@@ -13,7 +14,6 @@
     "docx": "^4.7.1",
     "express": "^4.15.2",
     "express-fileupload": "^1.1.4",
-    "socket.io": "^2.2.0",
     "subsrt": "^1.0.0"
   },
   "devDependencies": {
