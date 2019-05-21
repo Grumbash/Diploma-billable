@@ -26,7 +26,46 @@ app.post("/time", (req, res) => {
 });
 
 app.post("/resync", (req, res) => {
-  console.log(req);
+
+const {fps} = req.body
+
+if (Object.keys(req.files).length == 0) {
+  return res.status(400).send("No files were uploaded.");
+}
+
+console.log(req.files);
+
+const name = Object.keys(req.files)[0];
+
+let file = req.files[name];
+const path = __dirname + "/files/" + name;
+
+if (file instanceof Array) {
+  file = file[file.length - 1];
+}
+
+file.mv(path, function(err) {
+  if (err) {
+    console.log(err);
+    return res.status(500).send(err);
+  }
+  fs.readFile(path, "utf8", (err, contents) => {
+    let result;
+    const captions = subsrt.parse(contents, { fps });
+    resynced = subsrt.resync(content, { ratio: 30 / 25, frame: true });
+
+    if (!result || Object.keys(result).length == 0) {
+      return res.json("This file does not meet the format");
+    }
+    if (result) res.json({ format: result });
+  });
+
+  fs.unlink(path, err => {
+    if (err) {
+      console.log(err);
+    }
+  });
+});
 });
 
 app.post("/convertToFormat", (req, res)=>{
