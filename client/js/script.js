@@ -3,6 +3,28 @@ const sections = $(".upload-section");
 const url = "http://localhost:3000";
 const data = new FormData();
 
+function download(fileName) {
+  var element = document.createElement("a");
+  element.setAttribute("href", `/${fileName}`);
+  element.setAttribute("download", fileName);
+
+  element.style.display = "none";
+  document.body.appendChild(element);
+
+  element.click();
+
+  $.ajax({
+    url: url + "/deleteFile",
+    data: fileName,
+    type: "POST",
+    success: function(res) {
+      console.log(res);
+    }
+  });
+
+  document.body.removeChild(element);
+}
+
 $(".detect").on("click", function(e) {
   uploadName = "detect";
   $(".upload-section").removeClass("upload-section_active");
@@ -154,6 +176,10 @@ $(".upload-section-convertToFormat__btn").on("click", function(e) {
     method: "POST",
     success: function(res) {
       console.log(res);
+      download(res);
+      // const formData = new FormData();
+      // formData.set("Document", res);
+      // download("Document.docx", formData, "Document");
     }
   });
 });
