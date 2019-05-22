@@ -2,14 +2,14 @@ const express = require("express");
 const app = express();
 const http = require("http").createServer(app);
 const fileUpload = require("express-fileupload");
-const docx = require("docx");
+const { Document, Packer, Paragraph } = require("docx");
 const middleware = require("./middleware.js");
 const fs = require("fs");
 const pathO = require("path");
 const subsrt = require("subsrt");
 const flatten = require("lodash/flatten");
 
-const doc = new docx.Document();
+const doc = new Document();
 
 app.use(fileUpload());
 
@@ -43,7 +43,7 @@ app.post("/resync", (req, res) => {
   const name = Object.keys(req.files)[0];
 
   let file = req.files[name];
-  const path = pathO.resolve(__dirname, "/client", name);
+  const path = __dirname + "/client" + name;
   if (file instanceof Array) {
     file = file[file.length - 1];
   }
@@ -100,23 +100,36 @@ app.post("/convertToFormat", (req, res) => {
       }
       const parts = contents
         .split(/\r?\n\s+\r?\n/g)
-        .map(elem => elem.split(/\n/g));
+        .map(elem => elem.split("\r\n"))
+        .map(arr => {
+          arr.shift();
+          const timeline = arr.shift();
+          const text = arr.join(" ");
+          return {
+            timeline,
+            text
+          };
+        });
 
-      flatten(parts)
-        .map(str => new docx.Paragraph(str))
-        .forEach(paragraph => doc.addParagraph(paragraph));
+      const table = doc.createTable({
+        rows: parts.length + 1,
+        columns: 3
+      });
 
-      const packer = new docx.Packer();
+      table.getCell(0, 0).addParagraph(new Paragraph("Timeline"));
+      table.getCell(0, 1).addParagraph(new Paragraph("Character"));
+      table.getCell(0, 2).addParagraph(new Paragraph("Text"));
+
+      parts.forEach((elem, idx) => {
+        table.getCell(idx + 1, 0).addParagraph(new Paragraph(elem.timeline));
+        table.getCell(idx + 1, 2).addParagraph(new Paragraph(elem.text));
+      });
+
+      const packer = new Packer();
 
       packer.toBuffer(doc).then(buffer => {
         fs.writeFile("./client/Document.docx", buffer, err => {
           if (err) throw err;
-          // res.download("./Document.docx", err => {
-          //   if (err) throw err;
-          //   fs.unlink("./Document.docx", err => {
-          //     if (err) throw err;
-          //   });
-          // });
           res.send("Document.docx");
         });
       });
