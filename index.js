@@ -3,17 +3,29 @@ const app = express();
 const http = require("http").createServer(app);
 const fileUpload = require("express-fileupload");
 const { Document, Packer, Paragraph } = require("docx");
-const middleware = require("./middleware.js");
 const fs = require("fs");
 const pathO = require("path");
 const subsrt = require("subsrt");
-const flatten = require("lodash/flatten");
-
+const bodyParser = require("body-parser");
 const doc = new Document();
 
-app.use(fileUpload());
-
 app.use(express.static("client"));
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+app.post("/deleteFile", (req, res) => {
+  console.log(req.body);
+  const path = __dirname + "/client/" + req.body.fileName;
+  fs.unlink(path, err => {
+    if (err) {
+      console.log(err);
+      return res.status(500).send(err);
+    }
+    res.send(req.body.fileName + ": has been deleted");
+  });
+});
+
+app.use(fileUpload());
 
 app.post("/detect", (req, res) => {
   if (Object.keys(req.files).length == 0) {
@@ -318,15 +330,6 @@ app.post("/convertToFormat", (req, res) => {
         console.log(err);
       }
     });
-  });
-});
-
-app.post("/deleteFile", (req, res) => {
-  const path = pathO.resolve(__dirname, "/client", req.body.fileName);
-  fs.unlink(path, err => {
-    if (err) {
-      console.log(err);
-    }
   });
 });
 

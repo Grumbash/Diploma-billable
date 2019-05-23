@@ -13,14 +13,17 @@ function download(fileName) {
 
   element.click();
 
-  // $.ajax({
-  //   url: url + "/deleteFile",
-  //   data: fileName,
-  //   type: "POST",
-  //   success: function(res) {
-  //     console.log(res);
-  //   }
-  // });
+  $.ajax({
+    url: url + "/deleteFile",
+    data: JSON.stringify({ fileName }),
+    type: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    success: function(res) {
+      console.log(res);
+    }
+  });
 
   document.body.removeChild(element);
 }
