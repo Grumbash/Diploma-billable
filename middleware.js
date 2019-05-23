@@ -20,6 +20,10 @@ module.exports = (req, res, fileHandler, params, isFormat = false) => {
       return res.status(500).send(err);
     }
     fs.readFile(path, "utf8", (err, contents) => {
+      if (err) {
+        console.log(err);
+        return res.status(500).send(err);
+      }
       let result;
       if (!params === null) {
         result = subsrt[fileHandler](contents);
