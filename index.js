@@ -16,7 +16,46 @@ app.use(fileUpload());
 app.use(express.static("client"));
 
 app.post("/detect", (req, res) => {
-  middleware(req, res, "detect", null);
+  if (Object.keys(req.files).length == 0) {
+    return res.status(400).send("No files were uploaded.");
+  }
+  const name = Object.keys(req.files)[0];
+  let file = req.files[name];
+
+  const path = __dirname + "/client/" + name;
+
+  if (file instanceof Array) {
+    file = file[file.length - 1];
+  }
+
+  file.mv(path, function(err) {
+    if (err) {
+      console.log(err);
+      return res.status(500).send(err);
+    }
+    fs.readFile(path, "utf8", (err, contents) => {
+      if (err) {
+        console.log(err);
+        return res.status(500).send(err);
+      }
+
+      const detectedFile = subsrt.detect(contents);
+
+      if (!detectedFile || Object.keys(detectedFile).length === 0) {
+        return res.json("This file does not meet the format");
+      }
+      if (detectedFile)
+        res.json({
+          format: detectedFile
+        });
+    });
+
+    fs.unlink(path, err => {
+      if (err) {
+        console.log(err);
+      }
+    });
+  });
 });
 
 app.post("/parse", (req, res) => {

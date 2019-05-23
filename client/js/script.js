@@ -75,7 +75,7 @@ $(".upload-section-detect__btn").on("click", function(e) {
     processData: false,
     method: "POST",
     success: function(res) {
-      console.log(res);
+      alert(`Format is: ${res.format}`);
     }
   });
 });

@@ -97,3 +97,9 @@ body {
 #time-number {
   border: 1px solid gray;
 }
+
+.header__main-image {
+  display: inline-block;
+  width: 100%;
+  margin: 0 auto;
+}

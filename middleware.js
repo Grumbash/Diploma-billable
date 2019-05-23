@@ -1,16 +1,14 @@
 const fs = require("fs");
 const subsrt = require("subsrt");
-const pathO = require("path");
 
 module.exports = (req, res, fileHandler, params, isFormat = false) => {
   if (Object.keys(req.files).length == 0) {
     return res.status(400).send("No files were uploaded.");
   }
-  console.log(req.files);
   const name = Object.keys(req.files)[0];
   let file = req.files[name];
 
-  const path = pathO.resolve(__dirname, "/client", name);
+  const path = __dirname + "/client/" + name;
 
   if (file instanceof Array) {
     file = file[file.length - 1];
