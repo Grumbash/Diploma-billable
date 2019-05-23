@@ -140,6 +140,7 @@ $(".upload-section-time__bnt").on("click", function(e) {
     method: "POST",
     success: function(res) {
       console.log(res);
+      download(res);
     }
   });
 });

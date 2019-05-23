@@ -154,7 +154,53 @@ app.post("/convert", (req, res) => {
 });
 
 app.post("/time", (req, res) => {
-  middleware(req, res, "resync", { offset: req.body.offset }, true);
+  if (Object.keys(req.files).length == 0) {
+    return res.status(400).send("No files were uploaded.");
+  }
+  const name = Object.keys(req.files)[0];
+  let file = req.files[name];
+
+  const path = __dirname + "/client/" + name;
+
+  if (file instanceof Array) {
+    file = file[file.length - 1];
+  }
+
+  file.mv(path, function(err) {
+    if (err) {
+      console.log(err);
+      return res.status(500).send(err);
+    }
+    fs.readFile(path, "utf8", (err, contents) => {
+      if (err) {
+        console.log(err);
+        return res.status(500).send(err);
+      }
+
+      const formated = subsrt.parse(contents);
+      const format = subsrt.detect(contents);
+      const json = JSON.stringify(
+        subsrt.resync(formated, { offset: req.body.offset })
+      );
+      const result = subsrt.convert(json, format);
+
+      if (!result || Object.keys(result).length == 0) {
+        return res.json("This file does not meet the format");
+      }
+      if (result) {
+        fs.writeFile("./client/Document." + format, result, err => {
+          if (err) throw err;
+          res.send("Document." + format);
+        });
+      }
+    });
+
+    fs.unlink(path, err => {
+      if (err) {
+        console.log(err);
+      }
+    });
+  });
 });
 
 app.post("/resync", (req, res) => {
