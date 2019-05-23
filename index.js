@@ -104,7 +104,53 @@ app.post("/parse", (req, res) => {
 });
 
 app.post("/convert", (req, res) => {
-  middleware(req, res, "convert", { format: req.body.formatType });
+  if (Object.keys(req.files).length == 0) {
+    return res.status(400).send("No files were uploaded.");
+  }
+  const name = Object.keys(req.files)[0];
+  let file = req.files[name];
+
+  const path = __dirname + "/client/" + name;
+
+  if (file instanceof Array) {
+    file = file[file.length - 1];
+  }
+
+  file.mv(path, function(err) {
+    if (err) {
+      console.log(err);
+      return res.status(500).send(err);
+    }
+    fs.readFile(path, "utf8", (err, contents) => {
+      if (err) {
+        console.log(err);
+        return res.status(500).send(err);
+      }
+      const result = subsrt.convert(contents, {
+        format: req.body.formatType
+      });
+
+      if (!result || Object.keys(result).length == 0) {
+        return res.json("This file does not meet the format");
+      }
+      if (result) {
+        fs.writeFile(
+          "./client/Document." + req.body.formatType,
+          result,
+          err => {
+            if (err) throw err;
+            res.send("Document." + req.body.formatType);
+          }
+        );
+      }
+    });
+
+    fs.unlink(path, err => {
+      if (err) {
+        console.log(err);
+      }
+    });
+  });
 });
 
 app.post("/time", (req, res) => {
