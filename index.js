@@ -227,7 +227,8 @@ app.post("/resync", (req, res) => {
     }
     fs.readFile(path, "utf8", (err, contents) => {
       if (err) {
-        throw err;
+        console.log(err);
+        return res.status(500).send(err);
       }
       let result;
       const format = subsrt.detect(contents);
@@ -237,7 +238,12 @@ app.post("/resync", (req, res) => {
       if (!result || Object.keys(result).length == 0) {
         return res.json("This file does not meet the format");
       }
-      if (result) res.json({ format: result });
+      if (result) {
+        fs.writeFile("./client/Document." + format, result, err => {
+          if (err) throw err;
+          res.send("Document." + format);
+        });
+      }
     });
 
     fs.unlink(path, err => {

@@ -160,6 +160,7 @@ $(".upload-section-resync__btn").on("click", function(e) {
     method: "POST",
     success: function(res) {
       console.log(res);
+      download(res);
     }
   });
 });
