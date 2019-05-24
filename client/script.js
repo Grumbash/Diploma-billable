@@ -1,18 +1,16 @@
 let uploadName;
 const sections = $(".upload-section");
 const url = "http://localhost:3000";
-const data = new FormData();
 
 function download(fileName) {
   var element = document.createElement("a");
-  element.setAttribute("href", `/${fileName}`);
+  const path = fileName;
+  console.log(path);
+  element.setAttribute("href", path);
   element.setAttribute("download", fileName);
-
   element.style.display = "none";
   document.body.appendChild(element);
-
   element.click();
-
   $.ajax({
     url: url + "/deleteFile",
     data: JSON.stringify({ fileName }),
@@ -24,7 +22,6 @@ function download(fileName) {
       console.log(res);
     }
   });
-
   document.body.removeChild(element);
 }
 
@@ -65,6 +62,7 @@ $(".convertToFormat").on("click", function(e) {
 });
 
 $(".upload-section-detect__btn").on("click", function(e) {
+  const data = new FormData();
   e.preventDefault();
   const files = $(".upload-section-detect__input")[0].files;
   const data_inner = files[files.length - 1];
@@ -84,6 +82,7 @@ $(".upload-section-detect__btn").on("click", function(e) {
 });
 
 $(".upload-section-parse__btn").on("click", function(e) {
+  const data = new FormData();
   e.preventDefault();
   const files = $(".upload-section-parse__input")[0].files;
   const data_inner = files[files.length - 1];
@@ -104,6 +103,7 @@ $(".upload-section-parse__btn").on("click", function(e) {
 });
 
 $(".upload-section-convert__btn").on("click", function(e) {
+  const data = new FormData();
   e.preventDefault();
   const files = $(".upload-section-convert__input")[0].files;
   const formatType = $("#format-select")[0].value;
@@ -128,6 +128,7 @@ $(".upload-section-convert__btn").on("click", function(e) {
 });
 
 $(".upload-section-time__bnt").on("click", function(e) {
+  const data = new FormData();
   e.preventDefault();
   const files = $(".upload-section-time__input")[0].files;
   const offset = $("#time-number")[0].value;
@@ -149,6 +150,7 @@ $(".upload-section-time__bnt").on("click", function(e) {
 });
 
 $(".upload-section-resync__btn").on("click", function(e) {
+  const data = new FormData();
   e.preventDefault();
   const files = $(".upload-section-resync__input")[0].files;
   const data_inner = files[files.length - 1];
@@ -169,6 +171,7 @@ $(".upload-section-resync__btn").on("click", function(e) {
 });
 
 $(".upload-section-convertToFormat__btn").on("click", function(e) {
+  const data = new FormData();
   e.preventDefault();
   const files = $(".upload-section-convertToFormat__input")[0].files;
   const data_inner = files[files.length - 1];
@@ -184,9 +187,6 @@ $(".upload-section-convertToFormat__btn").on("click", function(e) {
     success: function(res) {
       console.log(res);
       download(res);
-      // const formData = new FormData();
-      // formData.set("Document", res);
-      // download("Document.docx", formData, "Document");
     }
   });
 });

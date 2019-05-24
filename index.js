@@ -7,7 +7,6 @@ const fs = require("fs");
 const pathO = require("path");
 const subsrt = require("subsrt");
 const bodyParser = require("body-parser");
-const doc = new Document();
 
 app.use(express.static("client"));
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -21,6 +20,7 @@ app.post("/deleteFile", (req, res) => {
       console.log(err);
       return res.status(500).send(err);
     }
+    console.log(path);
     res.send(req.body.fileName + ": has been deleted");
   });
 });
@@ -31,9 +31,9 @@ app.post("/detect", (req, res) => {
   if (Object.keys(req.files).length == 0) {
     return res.status(400).send("No files were uploaded.");
   }
-  const name = Object.keys(req.files)[0];
-  let file = req.files[name];
+  const name = Object.keys(req.files)[Object.keys(req.files).length - 1];
 
+  let file = req.files[name];
   const path = __dirname + "/client/" + name;
 
   if (file instanceof Array) {
@@ -74,9 +74,9 @@ app.post("/parse", (req, res) => {
   if (Object.keys(req.files).length == 0) {
     return res.status(400).send("No files were uploaded.");
   }
-  const name = Object.keys(req.files)[0];
-  let file = req.files[name];
+  const name = Object.keys(req.files)[Object.keys(req.files).length - 1];
 
+  let file = req.files[name];
   const path = __dirname + "/client/" + name;
 
   if (file instanceof Array) {
@@ -100,9 +100,9 @@ app.post("/parse", (req, res) => {
         return res.json("This file does not meet the format");
       }
       if (result) {
-        fs.writeFile("./client/Document.json", result, err => {
+        fs.writeFile(`./client/${name}.json`, result, err => {
           if (err) throw err;
-          res.send("Document.json");
+          res.send(`${name}.json`);
         });
       }
     });
@@ -119,9 +119,9 @@ app.post("/convert", (req, res) => {
   if (Object.keys(req.files).length == 0) {
     return res.status(400).send("No files were uploaded.");
   }
-  const name = Object.keys(req.files)[0];
-  let file = req.files[name];
+  const name = Object.keys(req.files)[Object.keys(req.files).length - 1];
 
+  let file = req.files[name];
   const path = __dirname + "/client/" + name;
 
   if (file instanceof Array) {
@@ -146,14 +146,10 @@ app.post("/convert", (req, res) => {
         return res.json("This file does not meet the format");
       }
       if (result) {
-        fs.writeFile(
-          "./client/Document." + req.body.formatType,
-          result,
-          err => {
-            if (err) throw err;
-            res.send("Document." + req.body.formatType);
-          }
-        );
+        fs.writeFile(`./client/${name}.${req.body.formatType}`, result, err => {
+          if (err) throw err;
+          res.send(`${name}.${req.body.formatType}`);
+        });
       }
     });
 
@@ -169,9 +165,9 @@ app.post("/time", (req, res) => {
   if (Object.keys(req.files).length == 0) {
     return res.status(400).send("No files were uploaded.");
   }
-  const name = Object.keys(req.files)[0];
-  let file = req.files[name];
+  const name = Object.keys(req.files)[Object.keys(req.files).length - 1];
 
+  let file = req.files[name];
   const path = __dirname + "/client/" + name;
 
   if (file instanceof Array) {
@@ -200,9 +196,9 @@ app.post("/time", (req, res) => {
         return res.json("This file does not meet the format");
       }
       if (result) {
-        fs.writeFile("./client/Document." + format, result, err => {
+        fs.writeFile(`./client/${name}`, result, err => {
           if (err) throw err;
-          res.send("Document." + format);
+          res.send(`${name}`);
         });
       }
     });
@@ -222,12 +218,10 @@ app.post("/resync", (req, res) => {
     return res.status(400).send("No files were uploaded.");
   }
 
-  console.log(req.files);
-
-  const name = Object.keys(req.files)[0];
+  const name = Object.keys(req.files)[Object.keys(req.files).length - 1];
 
   let file = req.files[name];
-  const path = __dirname + "/client" + name;
+  const path = __dirname + "/client/" + name;
   if (file instanceof Array) {
     file = file[file.length - 1];
   }
@@ -251,9 +245,9 @@ app.post("/resync", (req, res) => {
         return res.json("This file does not meet the format");
       }
       if (result) {
-        fs.writeFile("./client/Document." + format, result, err => {
+        fs.writeFile(`./client/${name}`, result, err => {
           if (err) throw err;
-          res.send("Document." + format);
+          res.send(`${name}`);
         });
       }
     });
@@ -270,10 +264,10 @@ app.post("/convertToFormat", (req, res) => {
   if (Object.keys(req.files).length == 0) {
     return res.status(400).send("No files were uploaded.");
   }
-  const name = Object.keys(req.files)[0];
+  const name = Object.keys(req.files)[Object.keys(req.files).length - 1];
 
   let file = req.files[name];
-  const path = __dirname + "/client" + name;
+  const path = __dirname + "/client/" + name;
 
   if (file instanceof Array) {
     file = file[file.length - 1];
@@ -300,7 +294,7 @@ app.post("/convertToFormat", (req, res) => {
             text
           };
         });
-
+      const doc = new Document();
       const table = doc.createTable({
         rows: parts.length + 1,
         columns: 3
@@ -318,9 +312,9 @@ app.post("/convertToFormat", (req, res) => {
       const packer = new Packer();
 
       packer.toBuffer(doc).then(buffer => {
-        fs.writeFile("./client/Document.docx", buffer, err => {
+        fs.writeFile(`./client/${name}.docx`, buffer, err => {
           if (err) throw err;
-          res.send("Document.docx");
+          res.send(`${name}.docx`);
         });
       });
     });
