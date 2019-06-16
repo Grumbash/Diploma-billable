@@ -1,105 +1,211 @@
 @font-face {
-  font-family: "Akrobat-Regular";
-  src: url(fonts/Akrobat-Regular.otf) format("truetype");
+    font-family: "Akrobat-Regular";
+    src: url(fonts/Akrobat-Regular.otf) format("truetype");
 }
 
 @font-face {
-  font-family: "Akrobat-ExtraLight";
-  src: url(fonts/Akrobat-ExtraLight.otf) format("truetype");
+    font-family: "Akrobat-ExtraLight";
+    src: url(fonts/Akrobat-ExtraLight.otf) format("truetype");
 }
 
 * {
-  margin: 0;
-  padding: 0;
-  border: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
 }
 
 html,
 body,
 h1 {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  vertical-align: baseline;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    vertical-align: baseline;
 }
 
 body {
-  font-family: "Akrobat-Regular";
+    font-family: "Akrobat-Regular";
 }
 
 .nav {
-  display: flex;
-  position: relative;
+    display: flex;
+    position: relative;
 }
 .nav__title {
-  position: absolute;
-  top: 50%;
-  right: 4%;
+    position: absolute;
+    top: 50%;
+    right: 4%;
 }
+
 .main {
-  width: 80%;
-  margin: 0 auto;
+    width: 100%;
 }
 .main__list {
-  display: flex;
-  justify-content: space-between;
+    display: grid;
+
+    grid-template-areas:
+        "detect-btn"
+        "detect"
+        "parse-btn"
+        "parse"
+        "convert-btn"
+        "convert"
+        "time-btn"
+        "time"
+        "resync-btn"
+        "resync"
+        "convertToFormat-btn"
+        "convertToFormat";
 }
 .main__bnt-title {
-  margin: 0 auto;
-}
-.main__bnt-img {
+    margin: 0 auto;
+    width: fit-content;
 }
 .main__item {
-  display: inline-flex;
-  flex-direction: column;
+    display: inline-block;
+    margin: 0 auto;
 }
+
+.main__item-detect-btn {
+    grid-area: detect-btn;
+}
+
+.main__item-parse-btn {
+    grid-area: parse-btn;
+}
+
+.main__item-convert-btn {
+    grid-area: convert-btn;
+}
+
+.main__item-time-btn {
+    grid-area: time-btn;
+}
+
+.main__item-resync-btn {
+    grid-area: resync-btn;
+}
+
+.main__item-convertToFormat-btn {
+    grid-area: convertToFormat-btn;
+}
+
 .footer {
-  grid-area: footer;
-  text-align: center;
-  background: #000;
-  line-height: 75px;
+    grid-area: footer;
+    text-align: center;
+    background: #000;
+    line-height: 75px;
 }
 
 .footer p {
-  color: #fff;
-  vertical-align: baseline;
+    color: #fff;
+    vertical-align: baseline;
 }
 
 .upload-section {
-  height: 0;
-  visibility: hidden;
-  border-bottom: 1px solid gray;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
+    height: 0;
+    visibility: hidden;
+    border-bottom: 1px solid gray;
+}
+
+.upload-section-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
 }
 
 .upload-section_active {
-  margin-bottom: 20px;
-  visibility: visible;
-  height: 100px;
+    padding: 20px 0;
+    visibility: visible;
+    height: fit-content;
+    margin-bottom: 10px;
+}
+
+.upload-section-detect {
+    grid-area: detect;
+}
+
+.upload-section-parse {
+    grid-area: parse;
+}
+
+.upload-section-convert {
+    grid-area: convert;
+}
+
+.upload-section-time {
+    grid-area: time;
+}
+
+.upload-section-resync {
+    grid-area: resync;
+}
+
+.upload-section-convertToFormat {
+    grid-area: convertToFormat;
+}
+
+.upload-section-convert-form,
+.upload-section-time-form {
+    grid-template-columns: 1fr 1fr 1fr;
 }
 
 .upload-section__input {
-  border: 3px solid gray;
-  border-radius: 10px;
-  padding: 4px;
-  font-size: 16px;
+    border: 3px solid gray;
+    border-radius: 10px;
+    padding: 4px;
+    font-size: 16px;
 }
 
 .upload-section__btn {
-  border: 3px solid red;
-  border-radius: 10px;
-  padding: 4px;
-  font-size: 16px;
+    border: 3px solid red;
+    border-radius: 10px;
+    padding: 4px;
+    font-size: 16px;
 }
 
 #time-number {
-  border: 1px solid gray;
+    border: 1px solid gray;
 }
 
 .header__main-image {
-  display: inline-block;
-  width: 100%;
-  margin: 0 auto;
+    display: inline-block;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.nav__picture {
+    width: 100%;
+}
+
+@media (min-width: 750px) {
+    .nav__title {
+        position: static;
+        margin: auto;
+
+        display: block;
+        width: fit-content;
+    }
+    .nav__picture {
+        display: inline-block;
+    }
+    .nav {
+        display: block;
+    }
+    .main__list {
+        grid-template-areas:
+            "detect-btn parse-btn convert-btn"
+            "detect     parse     convert"
+            "time-btn resync-btn convertToFormat-btn"
+            "time     resync     convertToFormat";
+    }
+    .main {
+        width: fit-content;
+        margin: 0 auto;
+    }
+    .main__bnt-img {
+        width: 250px;
+    }
+}
+
+@media (max-width: 1368px) {
 }
