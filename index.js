@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const http = require("http").createServer(app);
 const fileUpload = require("express-fileupload");
-const { Document, Packer, Paragraph } = require("docx");
+const { Document, Packer, Paragraph, TextRun } = require("docx");
 const fs = require("fs");
 const pathO = require("path");
 const subsrt = require("subsrt");
@@ -300,13 +300,15 @@ app.post("/convertToFormat", (req, res) => {
         columns: 3
       });
 
-      table.getCell(0, 0).addParagraph(new Paragraph("Timeline"));
-      table.getCell(0, 1).addParagraph(new Paragraph("Character"));
-      table.getCell(0, 2).addParagraph(new Paragraph("Text"));
+      /*table.getCell(0, 0).addParagraph(new Paragraph("Timeline"));*/
+      table.getCell(0, 0).addParagraph(new Paragraph().addRun(new TextRun("Timeline").font("Arial").size(32)));
+      table.getCell(0, 1).addParagraph(new Paragraph().addRun(new TextRun("Character").font("Arial").size(32)));
+      table.getCell(0, 2).addParagraph(new Paragraph().addRun(new TextRun("Text").font("Arial").size(32)));
+
 
       parts.forEach((elem, idx) => {
-        table.getCell(idx + 1, 0).addParagraph(new Paragraph(elem.timeline));
-        table.getCell(idx + 1, 2).addParagraph(new Paragraph(elem.text));
+        table.getCell(idx + 1, 0).addParagraph(new Paragraph().addRun(new TextRun(elem.timeline).font("Arial").size(32)));
+        table.getCell(idx + 1, 2).addParagraph(new Paragraph().addRun(new TextRun(elem.text).font("Arial").size(32)));
       });
 
       const packer = new Packer();

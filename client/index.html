@@ -1,164 +1,130 @@
 <!DOCTYPE html>
 <html lang="ru">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Приложение для работы с субтитрами | soVal</title>
-    <link rel="stylesheet" href="./style.css" type="text/css" />
-  </head>
-  <body>
-    <div class="container">
-      <header class="header">
-        <nav class="nav">
-          <img src="images/logo-small.png" alt="logo" class="nav__logo" />
-          <h1 class="nav__title">Приложение для работы с субтитрами</h1>
-        </nav>
-        <div class="header__image-container">
-          <img src="images/logo.png" alt="soVal" class="header__main-image" />
+    <head>
+        <meta charset="UTF-8" />
+        <title>Приложение для работы с субтитрами | soVal</title>
+        <link rel="stylesheet" href="./style.css" type="text/css" />
+    </head>
+    <body>
+        <div class="container">
+            <header class="header">
+                <nav class="nav">
+                    <h1 class="nav__title">Приложение для работы с субтитрами</h1>
+                    <picture class="nav__picture">
+                        <source srcset="images/logo.png" media="(min-width: 750px)" />
+                        <img src="images/logo-small.png" alt="soVal" class="nav__main" width="100%" />
+                    </picture>
+                </nav>
+                <div class="header__image-container"></div>
+            </header>
+            <main class="main">
+                <ul class="main__list">
+                    <li class="main__item main__item-detect-btn">
+                        <h2 class="main__bnt-title">Определение формата</h2>
+                        <button class="main__btn detect">
+                            <img src="icons/detect.gif" alt="Определение формата" class="main__bnt-img" />
+                        </button>
+                    </li>
+                    <li class="main__item upload-section upload-section-detect">
+                        <form class="main__row upload-section-form upload-section-detect-form">
+                            <input class="upload-section__input upload-section-detect__input" type="file" />
+                            <button class="upload-section__btn upload-section-detect__btn">
+                                Выполнить
+                            </button>
+                        </form>
+                    </li>
+                    <li class="main__item main__item-parse-btn">
+                        <h2 class="main__bnt-title">Парсинг</h2>
+                        <button class="main__btn parse">
+                            <img src="icons/parse.gif" alt="Парсинг" class="main__bnt-img" />
+                        </button>
+                    </li>
+                    <li class="main__item upload-section upload-section-parse">
+                        <form class="main__row upload-section-form upload-section-parse-form">
+                            <input class="upload-section__input upload-section-parse__input" type="file" />
+                            <button class="upload-section__btn upload-section-parse__btn">
+                                Выполнить
+                            </button>
+                        </form>
+                    </li>
+                    <li class="main__item main__item-convert-btn">
+                        <h2 class="main__bnt-title">Конвертация между форматами</h2>
+                        <button class="main__btn convert">
+                            <img src="icons/convert.gif" alt="Определение формата" class="main__bnt-img" />
+                        </button>
+                    </li>
+                    <li class="main__item upload-section upload-section-convert">
+                        <form class="main__row upload-section-form upload-section-convert-form">
+                            <input class="upload-section__input upload-section-convert__input" type="file" />
+                            <select name="format-select" id="format-select">
+                                <option value="sub">sub</option>
+                                <option value="srt">srt</option>
+                                <option value="sbv">sbv</option>
+                                <option value="vtt">vtt</option>
+                                <option value="ssa">ssa</option>
+                                <option value="ass">ass</option>
+                                <option value="smi">smi</option>
+                                <option value="lrc">lrc</option>
+                                <option value="json">json</option>
+                            </select>
+                            <button class="upload-section__btn upload-section-convert__btn">
+                                Выполнить
+                            </button>
+                        </form>
+                    </li>
+
+                    <li class="main__item main__item-time-btn">
+                        <h2 class="main__bnt-title">Сдвиг по времени</h2>
+                        <button class="main__btn time">
+                            <img src="icons/time.gif" alt="Сдвиг по времени" class="main__bnt-img" />
+                        </button>
+                    </li>
+                    <li class="main__item upload-section upload-section-time">
+                        <form class="main__row upload-section-form upload-section-time-form">
+                            <input class="upload-section__input upload-section-time__input" type="file" />
+                            <input type="number" name="time-number" id="time-number" />
+                            <button class="upload-section__btn upload-section-time__bnt">
+                                Выполнить
+                            </button>
+                        </form>
+                    </li>
+
+                    <li class="main__item main__item-resync-btn">
+                        <h2 class="main__bnt-title">Время проигрывания</h2>
+                        <button class="main__btn resync">
+                            <img src="icons/resync.gif" alt="Время проигрывания" class="main__bnt-img" />
+                        </button>
+                    </li>
+                    <li class="main__item upload-section upload-section-resync">
+                        <form class="main__row upload-section-form upload-section-resync-form">
+                            <input class="upload-section__input upload-section-resync__input" type="file" />
+                            <button class="upload-section__btn upload-section-resync__btn">
+                                Выполнить
+                            </button>
+                        </form>
+                    </li>
+
+                    <li class="main__item main__item-convertToFormat-btn">
+                        <h2 class="main__bnt-title">Конвертация в монтажный лист</h2>
+                        <button class="main__btn convertToFormat">
+                            <img src="icons/convertToFormat.gif" alt="Конвертация в монтажный лист" class="main__bnt-img" />
+                        </button>
+                    </li>
+                    <li class="main__item upload-section upload-section-convertToFormat">
+                        <form class="main__row upload-section-form upload-section-convertToFormat-form">
+                            <input class="upload-section__input upload-section-convertToFormat__input" type="file" />
+                            <button class="upload-section__btn upload-section-convertToFormat__btn">
+                                Выполнить
+                            </button>
+                        </form>
+                    </li>
+                </ul>
+            </main>
+            <footer class="footer">
+                <p class="footer__text">&copy;soVal – 2019.</p>
+            </footer>
         </div>
-      </header>
-      <main class="main">
-        <div class="main__row">
-          <ul class="main__list">
-            <li class="main__item">
-              <h2 class="main__bnt-title">Определение формата</h2>
-              <button class="main__btn detect">
-                <img
-                  src="icons/detect.gif"
-                  alt="Определение формата"
-                  class="main__bnt-img"
-                />
-              </button>
-            </li>
-            <li class="main__item">
-              <h2 class="main__bnt-title">Парсинг</h2>
-              <button class="main__btn parse">
-                <img
-                  src="icons/parse.gif"
-                  alt="Парсинг"
-                  class="main__bnt-img"
-                />
-              </button>
-            </li>
-            <li class="main__item">
-              <h2 class="main__bnt-title">Конвертация между форматами</h2>
-              <button class="main__btn convert">
-                <img
-                  src="icons/convert.gif"
-                  alt="Определение формата"
-                  class="main__bnt-img"
-                />
-              </button>
-            </li>
-          </ul>
-        </div>
-        <form class="main__row upload-section upload-section-detect">
-          <input
-            class="upload-section__input upload-section-detect__input"
-            type="file"
-          />
-          <button class="upload-section__btn upload-section-detect__btn">
-            Выполнить
-          </button>
-        </form>
-        <form class="main__row upload-section upload-section-parse">
-          <input
-            class="upload-section__input upload-section-parse__input"
-            type="file"
-          />
-          <button class="upload-section__btn upload-section-parse__btn">
-            Выполнить
-          </button>
-        </form>
-        <form class="main__row upload-section upload-section-convert">
-          <input
-            class="upload-section__input upload-section-convert__input"
-            type="file"
-          />
-          <select name="format-select" id="format-select">
-            <option value="sub">sub</option>
-            <option value="srt">srt</option>
-            <option value="sbv">sbv</option>
-            <option value="vtt">vtt</option>
-            <option value="ssa">ssa</option>
-            <option value="ass">ass</option>
-            <option value="smi">smi</option>
-            <option value="lrc">lrc</option>
-            <option value="json">json</option>
-          </select>
-          <button class="upload-section__btn upload-section-convert__btn">
-            Выполнить
-          </button>
-        </form>
-        <div class="main__row">
-          <ul class="main__list">
-            <li class="main__item">
-              <h2 class="main__bnt-title">Сдвиг по времени</h2>
-              <button class="main__btn time">
-                <img
-                  src="icons/time.gif"
-                  alt="Сдвиг по времени"
-                  class="main__bnt-img"
-                />
-              </button>
-            </li>
-            <li class="main__item">
-              <h2 class="main__bnt-title">Время проигрывания</h2>
-              <button class="main__btn resync">
-                <img
-                  src="icons/resync.gif"
-                  alt="Время проигрывания"
-                  class="main__bnt-img"
-                />
-              </button>
-            </li>
-            <li class="main__item">
-              <h2 class="main__bnt-title">Конвертация в монтажный лист</h2>
-              <button class="main__btn convertToFormat">
-                <img
-                  src="icons/convertToFormat.gif"
-                  alt="Конвертация в монтажный лист"
-                  class="main__bnt-img"
-                />
-              </button>
-            </li>
-          </ul>
-        </div>
-        <form class="main__row upload-section upload-section-time">
-          <input
-            class="upload-section__input upload-section-time__input"
-            type="file"
-          />
-          <input type="number" name="time-number" id="time-number" />
-          <button class="upload-section__btn upload-section-time__bnt">
-            Выполнить
-          </button>
-        </form>
-        <form class="main__row upload-section upload-section-resync">
-          <input
-            class="upload-section__input upload-section-resync__input"
-            type="file"
-          />
-          <button class="upload-section__btn upload-section-resync__btn">
-            Выполнить
-          </button>
-        </form>
-        <form class="main__row upload-section upload-section-convertToFormat">
-          <input
-            class="upload-section__input upload-section-convertToFormat__input"
-            type="file"
-          />
-          <button
-            class="upload-section__btn upload-section-convertToFormat__btn"
-          >
-            Выполнить
-          </button>
-        </form>
-      </main>
-      <footer class="footer">
-        <p class="footer__text">&copy;soVal – 2019.</p>
-      </footer>
-    </div>
-    <script src="js/jquery-3.4.1.min.js"></script>
-    <script src="script.js"></script>
-  </body>
+        <script src="js/jquery-3.4.1.min.js"></script>
+        <script src="script.js"></script>
+    </body>
 </html>
