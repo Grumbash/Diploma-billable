@@ -1,6 +1,6 @@
 let uploadName;
 const sections = $(".upload-section");
-const url = "/api";
+const url = "http://localhost:3000";
 
 function download(fileName) {
     var element = document.createElement("a");

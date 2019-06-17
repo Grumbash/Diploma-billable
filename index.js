@@ -4,7 +4,7 @@ const http = require("http").createServer(app);
 const fileUpload = require("express-fileupload");
 const { Document, Packer, Paragraph, TextRun } = require("docx");
 const fs = require("fs");
-const pathO = require("path");
+const path0 = require("path");
 const subsrt = require("subsrt");
 const bodyParser = require("body-parser");
 
@@ -326,13 +326,12 @@ app.post("/convertToFormat", (req, res) => {
     });
 });
 
-// http.listen(3000, function() {
-//     console.log("listening on *:3000");
-// });
+var port = process.env.PORT || 3000;
 
-app.get("/", function(req, res) {
-    res.sendFile(path.join(__dirname + "/index.html"));
-    //__dirname : It will resolve to your project folder.
+http.listen(port, function() {
+    console.log("listening on *:" + port);
 });
 
-app.listen(process.env.port || 3000);
+// var server = app.listen(port, function() {
+//     console.log("app running on port " + port);
+// });
