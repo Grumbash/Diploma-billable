@@ -326,6 +326,13 @@ app.post("/convertToFormat", (req, res) => {
     });
 });
 
-http.listen(80, function() {
-    console.log("listening on *:80");
+// http.listen(3000, function() {
+//     console.log("listening on *:3000");
+// });
+
+app.get("/", function(req, res) {
+    res.sendFile(path.join(__dirname + "/index.html"));
+    //__dirname : It will resolve to your project folder.
 });
+
+app.listen(process.env.port || 3000);
