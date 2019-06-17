@@ -4,10 +4,11 @@ const http = require("http").createServer(app);
 const fileUpload = require("express-fileupload");
 const { Document, Packer, Paragraph, TextRun } = require("docx");
 const fs = require("fs");
-const path0 = require("path");
 const subsrt = require("subsrt");
 const bodyParser = require("body-parser");
+const cors = require("cors");
 
+app.use(cors());
 app.use(express.static("client"));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());

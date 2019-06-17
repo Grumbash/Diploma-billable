@@ -1,7 +1,7 @@
 let uploadName;
 const sections = $(".upload-section");
-const url = "http://localhost:3000";
-
+// const url = "https://so-val.herokuapp.com";
+const url = "https://so-so-val-val.herokuapp.com";
 function download(fileName) {
     var element = document.createElement("a");
     const path = fileName;
